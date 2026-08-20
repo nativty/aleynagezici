@@ -1,0 +1,65 @@
+/* ─── Portfolio Page ─────────────────────────────────────────────── */
+
+.portfolio {
+  background: var(--cream);
+  min-height: calc(100vh - var(--navbar-height));
+  animation: fadeUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.portfolio-container {
+  /* Remove horizontal padding so the spread can use full width */
+  max-width: 100%;
+  padding: 0;
+}
+
+/* ─── Layout ──────────────────────────────────────────────────────── */
+
+.portfolio-layout {
+  display: flex;
+  position: relative;
+  height: calc(100vh - var(--navbar-height) - 20px);
+  min-height: 480px;
+  /* NO overflow:hidden — zoom overlay must escape */
+}
+
+.portfolio-viewer-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Generous horizontal padding — the book-stage uses this space correctly */
+  padding: var(--space-md) 80px var(--space-md) 60px;
+}
+
+.portfolio-index-area {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  /* Width expands on hover via ProjectIndex.css */
+}
+
+/* ─── Responsive ──────────────────────────────────────────────────── */
+
+@media (max-width: 1200px) {
+  .portfolio-viewer-area {
+    padding: var(--space-md) 60px var(--space-md) 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .portfolio-layout {
+    height: auto;
+    flex-direction: column;
+    padding-bottom: var(--space-xl);
+  }
+  .portfolio-index-area {
+    display: none;
+  }
+  .portfolio-viewer-area {
+    padding: var(--space-md) 16px;
+    width: 100%;
+    justify-content: center;
+  }
+}

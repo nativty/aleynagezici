@@ -1,0 +1,290 @@
+/* ════════════════════════════════════════════════════════════════
+   BOOK VIEWER — A3 Landscape Portfolio Book (react-pageflip)
+   ════════════════════════════════════════════════════════════════ */
+
+.book-viewer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.book-stage {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  position: relative;
+}
+
+.book-controls-row {
+  flex: 0 0 64px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.pdf-doc-global {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-global-loading,
+.pdf-global-error {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  padding: 60px 40px;
+}
+
+/* ── HTMLFlipBook Wrapper & Physical Depth ──────────────────────── */
+.flipbook-wrapper {
+  position: relative;
+  /* Shadow is now handled by the ::before pseudo-element */
+}
+
+.flipbook-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  box-shadow: 0 18px 48px rgba(36,32,30,0.22);
+  pointer-events: none;
+  z-index: -1;
+  transition: all 0.4s ease;
+}
+
+.flipbook-wrapper.is-cover::before {
+  /* When on cover, only cast shadow on the right half */
+  left: 50%;
+}
+
+.flipbook-wrapper.is-zoomed::before {
+  box-shadow: 0 40px 100px rgba(36,32,30,0.35);
+}
+
+.flipbook-wrapper.is-cover .flipbook-depth-left,
+.flipbook-wrapper.is-cover .flipbook-spine {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-flipbook.no-pointer-events {
+  pointer-events: none;
+}
+
+.flipbook-depth-left {
+  position: absolute;
+  top: 4px; bottom: 4px;
+  left: calc(var(--left-depth, 10px) * -1);
+  width: var(--left-depth, 10px);
+  background: repeating-linear-gradient(
+    to right,
+    #D6D1C6 0px,  #D6D1C6 1px,
+    #E6E2D8 1px,  #E6E2D8 3px
+  );
+  box-shadow: inset -1px 0 3px rgba(0,0,0,0.05), -3px 0 6px rgba(0,0,0,0.10);
+  border-radius: 3px 0 0 3px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flipbook-depth-right {
+  position: absolute;
+  top: 4px; bottom: 4px;
+  right: calc(var(--right-depth, 10px) * -1);
+  width: var(--right-depth, 10px);
+  background: repeating-linear-gradient(
+    to left,
+    #D6D1C6 0px,  #D6D1C6 1px,
+    #E6E2D8 1px,  #E6E2D8 3px
+  );
+  box-shadow: inset 1px 0 3px rgba(0,0,0,0.05), 3px 0 6px rgba(0,0,0,0.10);
+  border-radius: 0 3px 3px 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flipbook-spine {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 50px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,0.02) 20%,
+    rgba(0,0,0,0.18) 50%,
+    rgba(0,0,0,0.02) 80%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 99; /* Spine goes over the flipbook pages to cast center shadow */
+}
+
+/* Hide depth and spine on mobile single page mode */
+@media (max-width: 900px) {
+  .flipbook-depth-left, .flipbook-depth-right, .flipbook-spine { display: none; }
+  .flipbook-wrapper::before { box-shadow: 0 8px 24px rgba(36,32,30,0.18); }
+}
+
+/* ── Pages ──────────────────────────────────────────────────────── */
+.book-page-slot {
+  background: var(--warm-white);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-page-slot canvas,
+.book-page-slot .react-pdf__Page {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.page-paper-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #EFEBDE;
+  /* subtle noise/texture to look like blank paper */
+  background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
+}
+
+/* ── Virtual cover ──────────────────────────────────────────────── */
+.book-virtual-cover {
+  background: var(--ruby);
+  background-image: linear-gradient(
+    to left, /* Front cover shadow */
+    rgba(36,32,30,0.48) 0%,
+    rgba(36,32,30,0.07) 6%,
+    transparent 12%
+  );
+  display: flex;
+  align-items: stretch;
+  border-radius: 2px 5px 5px 2px;
+  box-shadow: inset 2px 0 6px rgba(255,255,255,0.06);
+}
+
+.book-virtual-cover-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(14px, 6%, 36px) clamp(12px, 5%, 28px);
+  border: 1px solid rgba(245,240,232,0.20);
+  border-radius: 1px 4px 4px 1px;
+  color: var(--warm-white);
+}
+.book-virtual-cover-inner > span {
+  text-align: center;
+  font-size: clamp(7px, 1.1vw, 10px);
+  letter-spacing: 0.28em;
+  color: var(--copper);
+}
+.book-virtual-cover-inner .book-title {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 3.2vw, 42px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+.book-virtual-cover-inner .book-title small {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(7px, 1vw, 11px);
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  margin-top: 10px;
+  color: var(--copper);
+}
+.book-virtual-cover-inner .book-logo {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(14px, 2vw, 24px);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--copper);
+}
+
+/* ── Controls ───────────────────────────────────────────────────── */
+.book-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.book-btn {
+  background: transparent;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--copper);
+  cursor: pointer;
+  padding: 8px 16px;
+  min-width: 80px;
+  transition: color 0.2s ease;
+}
+.book-btn:hover:not(:disabled) { color: var(--ruby); }
+.book-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+
+.book-page-indicator {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Disable pointer events on flipbook during fast navigation to prevent accidental clicks */
+.flipbook-wrapper.is-fast-nav .portfolio-flipbook {
+  pointer-events: none;
+}
+
+/* ── Zoom overlay ──────────────────────────────────────────────── */
+/* Full-viewport transparent overlay shown when a page is zoomed.  */
+/* Tracks mouse for the magnifier; click anywhere closes zoom.      */
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  cursor: zoom-out;
+}
+
+/* ── Magnifier lens ─────────────────────────────────────────────── */
+.magnifier-lens {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.12),
+    0 12px 48px rgba(36, 32, 30, 0.4);
+  background: #F0EDE6;
+}
+
+
+.book-center-controls { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.zoom-btn { background: rgba(122, 29, 29, 0.8) !important; color: #ffffff !important; padding: 6px 14px !important; border-radius: 20px !important; transition: all 0.2s ease; opacity: 1 !important; display: flex; align-items: center; justify-content: center; }
+.zoom-btn:hover { background: rgba(122, 29, 29, 1) !important; transform: scale(1.05); }
+.zoom-btn.active { background: #2e7d32 !important; }
+
+
+/* Global PDF Loading Spinner */
+.pdf-global-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--warm-white); z-index: 1000; font-family: 'Inter', sans-serif; color: var(--wine-red); }
+.pdf-global-loading .spinner { width: 40px; height: 40px; border: 3px solid rgba(122, 29, 29, 0.2); border-top-color: var(--wine-red); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+.pdf-global-loading .loading-text { font-size: 14px; letter-spacing: 0.1em; font-weight: 500; margin-bottom: 12px; }
+.progress-bar-container { width: 200px; height: 4px; background: rgba(122, 29, 29, 0.1); border-radius: 2px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: var(--wine-red); transition: width 0.3s ease; }
+@keyframes spin { to { transform: rotate(360deg); } }

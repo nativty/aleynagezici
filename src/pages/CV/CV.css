@@ -1,0 +1,362 @@
+/* ─── CV Page Container ────────────────────────────────────── */
+
+.cv {
+  padding: var(--space-md) 0;
+  min-height: calc(100vh - var(--navbar-height));
+  background: var(--cream);
+  animation: fadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* ─── Header ───────────────────────────────────────────────── */
+
+.cv-page-header {
+  margin-bottom: var(--space-md);
+  text-align: left;
+}
+
+.cv-page-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 500;
+  color: var(--dark-ruby);
+  letter-spacing: var(--tracking-wide);
+  line-height: 1.1;
+}
+
+.cv-page-header h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--copper);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* ─── Layout Grid ──────────────────────────────────────────── */
+
+.cv-grid {
+  display: grid;
+  grid-template-columns: 180px 1.2fr 1fr 1.2fr;
+  gap: 3.5vw;
+  align-items: start;
+}
+
+/* ─── Global CV Elements ───────────────────────────────────── */
+
+.cv-section {
+  margin-bottom: 24px;
+}
+
+.cv-section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--copper);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.cv-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--charcoal);
+}
+
+/* ─── Column 1: Identity ───────────────────────────────────── */
+
+.cv-photo-placeholder {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: var(--copper);
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+.cv-photo-inner {
+  width: 100%;
+  height: 100%;
+  background: var(--warm-white);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cv-photo-inner::after {
+  content: 'PHOTO';
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: var(--tracking-widest);
+}
+
+.cv-contact-info {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--charcoal);
+  margin-bottom: 30px;
+}
+
+.cv-contact-info a {
+  color: inherit;
+  transition: color var(--ease-fast);
+}
+.cv-contact-info a:hover,
+.cv-contact-info a:focus-visible {
+  color: var(--ruby);
+  outline: none;
+}
+.cv-contact-info a:focus-visible {
+  text-decoration: underline;
+}
+
+.cv-behance-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cv-behance-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 7.5px;
+  font-weight: 500;
+  color: var(--copper);
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+  word-break: break-all;
+  transition: color var(--ease-fast);
+}
+
+.cv-behance-link:hover,
+.cv-behance-link:focus-visible {
+  color: var(--ruby);
+  outline: none;
+}
+
+.cv-qr-link {
+  display: block;
+  width: 70px;
+  height: 70px;
+  transition: transform var(--ease-medium), opacity var(--ease-fast);
+}
+.cv-qr-link:hover,
+.cv-qr-link:focus-visible {
+  transform: scale(1.05);
+  opacity: 0.85;
+  outline: none;
+}
+.cv-qr-link:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 4px;
+}
+
+.cv-qr-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cv-behance-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--copper);
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+  transition: color var(--ease-fast);
+}
+.cv-behance-label:hover,
+.cv-behance-label:focus-visible {
+  color: var(--ruby);
+  outline: none;
+}
+
+/* ─── Column 2: Intro ──────────────────────────────────────── */
+
+.cv-resume-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 4vw, 56px);
+  font-weight: 400;
+  color: var(--dark-ruby);
+  letter-spacing: 0.08em;
+  margin-bottom: 28px;
+  line-height: 1;
+}
+
+.cv-softwares-section {
+  margin-top: 40px;
+}
+
+.cv-software-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.cv-software-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--charcoal);
+}
+.cv-soft-abbr {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: var(--dark-ruby);
+  color: var(--warm-white);
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+}
+
+/* ─── Column 3: Middle (Edu, Lang, Ref) ────────────────────── */
+
+.cv-list-item {
+  margin-bottom: 16px;
+}
+.cv-list-item h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 4px;
+}
+.cv-list-item p {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.cv-lang-item {
+  margin-bottom: 16px;
+}
+.cv-lang-header h4 {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+.cv-lang-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(118, 110, 104, 0.15);
+  border: 1px solid var(--copper);
+  margin-bottom: 4px;
+}
+.cv-lang-fill {
+  height: 100%;
+  background: var(--dark-ruby);
+}
+.cv-lang-native { width: 95%; }
+.cv-lang-pro { width: 85%; }
+.cv-lang-item p {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.cv-italic {
+  font-style: italic;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+
+.cv-ref-item {
+  margin-bottom: 12px;
+}
+
+/* ─── Column 4: Experience ─────────────────────────────────── */
+
+.cv-job {
+  margin-bottom: 24px;
+}
+
+.cv-company {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 2px;
+}
+
+.cv-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 6px;
+}
+
+.cv-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.cv-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ─── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 1100px) {
+  .cv-grid {
+    grid-template-columns: 160px 1fr 1fr;
+  }
+  .cv-experience {
+    grid-column: 1 / -1;
+    margin-top: var(--space-lg);
+    border-top: var(--border-subtle);
+    padding-top: var(--space-lg);
+  }
+}
+
+@media (max-width: 800px) {
+  .cv {
+    padding: var(--space-lg) 0;
+    min-height: calc(100vh - var(--navbar-height-mobile));
+  }
+  .cv-page-header {
+    margin-bottom: var(--space-lg);
+  }
+  .cv-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  .cv-col {
+    grid-column: 1 / -1;
+  }
+  .cv-photo-placeholder {
+    width: 200px;
+  }
+  .cv-behance-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+  }
+  .cv-experience {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
+  }
+}

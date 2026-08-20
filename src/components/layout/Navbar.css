@@ -1,0 +1,81 @@
+/* ─── Navbar Container ─────────────────────────────────────── */
+
+.navbar {
+  height: var(--navbar-height);
+  padding: 0 var(--container-pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cream);
+  border-bottom: var(--border-subtle);
+}
+
+/* ─── Logo ─────────────────────────────────────────────────── */
+
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  line-height: 1;
+  color: var(--ruby);
+  letter-spacing: -0.08em;
+}
+
+/* ─── Navigation Links ─────────────────────────────────────── */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+
+.nav-links a {
+  position: relative;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--charcoal);
+}
+
+/* Animated underline: hover + active route */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0;
+  height: 1px;
+  background: var(--ruby);
+  transition: width var(--ease-medium);
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a:focus-visible,
+.logo:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 4px;
+}
+
+/* ─── Reduced Motion ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .nav-links a::after {
+    transition: none;
+  }
+}
+
+/* ─── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 800px) {
+  .navbar {
+    height: var(--navbar-height-mobile);
+  }
+
+  /* Mobile menu will replace this in Phase 10 */
+  .nav-links {
+    display: none;
+  }
+}

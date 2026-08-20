@@ -1,0 +1,77 @@
+.project-index {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  background: transparent;
+  padding: var(--space-md) 0;
+}
+
+.index-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(245, 240, 232, 0.6);
+  padding: 24px 16px;
+  border-left: 1px solid rgba(181, 106, 60, 0.2);
+  border-radius: 4px 0 0 4px;
+  transform: translateX(0);
+  transition: background var(--ease-medium), box-shadow var(--ease-medium), padding var(--ease-medium);
+  backdrop-filter: blur(4px);
+}
+
+.project-index.is-hovered .index-rail {
+  background: var(--cream);
+  border-left: 1px solid var(--copper);
+  box-shadow: -10px 0 30px rgba(36, 32, 30, 0.08);
+  padding: 24px 32px 24px 20px;
+}
+
+.index-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.index-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--copper);
+  letter-spacing: 0.1em;
+  transition: color var(--ease-fast);
+}
+
+.index-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--charcoal);
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease, max-width 0.4s ease;
+}
+
+.project-index.is-hovered .index-title {
+  opacity: 1;
+  max-width: 250px;
+}
+
+.index-item.is-clickable:hover .index-num,
+.index-item.is-clickable:hover .index-title,
+.index-item.is-clickable:focus-visible .index-num,
+.index-item.is-clickable:focus-visible .index-title {
+  color: var(--ruby);
+}
+
+.index-item.is-clickable:focus-visible {
+  outline: none;
+}
+
+.index-item.is-disabled {
+  cursor: default;
+  opacity: 0.5;
+}

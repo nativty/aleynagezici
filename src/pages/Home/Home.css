@@ -1,0 +1,349 @@
+/* ─── Home Page Container ──────────────────────────────────── */
+
+.home {
+  /* Navbar is outside .home, subtract from viewport */
+  min-height: calc(100vh - var(--navbar-height));
+  padding: 0 var(--container-pad);
+  background: var(--cream);
+  overflow: hidden;
+}
+
+/* ─── Hero Section ─────────────────────────────────────────── */
+
+.hero {
+  min-height: calc(100vh - 150px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2vw;
+}
+
+.hero-content {
+  padding-left: var(--container-pad);
+  padding-top: 20px;
+}
+
+/* ─── Hero Typography ──────────────────────────────────────── */
+
+.eyebrow {
+  margin-bottom: 22px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: var(--copper);
+  animation: fadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(65px, 8vw, 130px);
+  line-height: 0.85;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  color: var(--dark-ruby);
+  animation: fadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
+}
+
+.hero-line {
+  width: 55px;
+  height: 1px;
+  margin: 35px 0 22px;
+  background: var(--copper);
+  transform-origin: left;
+  animation: scaleXIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both;
+}
+
+.hero-description {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  animation: fadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+}
+
+/* ─── CTA Button ───────────────────────────────────────────── */
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 35px;
+  padding: 15px 22px;
+  background: var(--ruby);
+  color: var(--warm-white);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  animation: fadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s both;
+  transition: var(--ease-medium);
+}
+
+.hero-button:hover,
+.hero-button:focus-visible {
+  background: var(--dark-ruby);
+  transform: translateY(-2px);
+  outline: 2px solid var(--copper);
+  outline-offset: 4px;
+}
+
+.hero-button span {
+  font-size: 16px;
+}
+
+/* ─── Book Visual ──────────────────────────────────────────── */
+
+.hero-book-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 680px;
+  perspective: 1600px; /* For 3D book hover */
+  animation: fadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+}
+
+.book {
+  position: relative;
+  width: min(750px, 92%); /* ~20% larger than previous */
+  aspect-ratio: 420 / 297;
+  transform-style: preserve-3d;
+  transform: rotateY(-22deg) rotateX(12deg);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+}
+
+.book:hover,
+.book:focus-visible {
+  transform: translateY(-10px) rotateY(-15deg) rotateX(15deg);
+  outline: none;
+}
+
+/* ─── 3D Book Elements ─────────────────────────────────────── */
+
+.book-front {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 35px;
+  background-color: var(--ruby);
+  background-image: linear-gradient(
+    to right, 
+    rgba(36, 32, 30, 0.4) 0%, 
+    rgba(36, 32, 30, 0.05) 4%, 
+    transparent 8%, 
+    transparent 100%
+  );
+  color: var(--warm-white);
+  border-radius: 2px 6px 6px 2px;
+  transform: translateZ(15px);
+  box-shadow: inset 2px 0 5px rgba(255,255,255,0.08);
+}
+
+.book-inner-border {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(245, 240, 232, 0.25);
+  pointer-events: none;
+  border-radius: 1px 4px 4px 1px;
+}
+
+.book-front > span {
+  position: relative;
+  text-align: center;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  color: var(--copper);
+}
+
+.book-back {
+  position: absolute;
+  inset: 0;
+  background: var(--dark-ruby);
+  border-radius: 2px 6px 6px 2px;
+  transform: translateZ(-15px);
+  box-shadow: -15px 25px 40px rgba(36, 32, 30, 0.25);
+}
+
+.book-spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  background: var(--dark-ruby);
+  transform: rotateY(-90deg);
+  transform-origin: left;
+  border-radius: 4px 0 0 4px;
+}
+
+.book-pages-right {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  right: 0;
+  width: 30px;
+  background: #E8E3DB;
+  transform: rotateY(90deg);
+  transform-origin: right;
+  border-radius: 0 4px 4px 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(118, 110, 104, 0.15) 2px,
+    rgba(118, 110, 104, 0.15) 3px
+  );
+  box-shadow: inset 4px 0 10px rgba(36,32,30,0.05);
+}
+
+.book-pages-top {
+  position: absolute;
+  top: 0;
+  left: 3px;
+  right: 3px;
+  height: 30px;
+  background: #E8E3DB;
+  transform: rotateX(90deg);
+  transform-origin: top;
+  background-image: repeating-linear-gradient(
+    to right,
+    transparent 0px,
+    transparent 2px,
+    rgba(118, 110, 104, 0.15) 2px,
+    rgba(118, 110, 104, 0.15) 3px
+  );
+}
+
+/* ─── Book Typography ──────────────────────────────────────── */
+
+.book-title {
+  position: relative;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 42px;
+  letter-spacing: 0.03em;
+}
+
+.book-title small {
+  display: block;
+  margin-top: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--copper);
+}
+
+.book-logo {
+  position: relative;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  color: var(--copper);
+}
+
+/* ─── Hero Footer ──────────────────────────────────────────── */
+
+.hero-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--container-pad) 25px;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  animation: fadeUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
+}
+
+.scroll-btn {
+  background: transparent;
+  border: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: color var(--ease-medium), transform var(--ease-fast);
+}
+
+.scroll-btn:hover {
+  color: var(--ruby);
+  transform: translateY(2px);
+}
+
+.home-explore-target {
+  height: 50px;
+}
+
+/* ─── Responsive ───────────────────────────────────────────── */
+
+@media (max-width: 800px) {
+  .home {
+    padding: 0 6vw;
+    min-height: calc(100vh - var(--navbar-height-mobile)); /* Mobile navbar */
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 60px 0;
+  }
+
+  .hero-content {
+    padding-left: 0;
+  }
+
+  .hero h1 {
+    font-size: clamp(70px, 20vw, 110px);
+  }
+
+  .hero-book-placeholder {
+    height: 500px;
+  }
+
+  .book {
+    width: min(280px, 65%);
+  }
+
+  .hero-footer {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 0 0 20px;
+  }
+}
+
+/* ─── Animations ───────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleXIn {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .hero h1,
+  .hero-line,
+  .hero-description,
+  .hero-button,
+  .hero-book-placeholder,
+  .hero-footer {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .book {
+    transition: none !important;
+  }
+}

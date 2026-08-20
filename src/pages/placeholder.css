@@ -1,0 +1,56 @@
+/* ─────────────────────────────────────────────────────────────
+   Shared placeholder styles for pages under construction.
+   Used by: Portfolio, About, CV, Contact (Phase 1 placeholders)
+   Will be removed as each page is built out.
+───────────────────────────────────────────────────────────── */
+
+.placeholder-page {
+  min-height: calc(100vh - var(--navbar-height));
+  display: flex;
+  align-items: center;
+  padding: 0 10vw;
+  background: var(--cream);
+}
+
+.placeholder-inner {
+  max-width: 560px;
+}
+
+.placeholder-label {
+  display: block;
+  margin-bottom: 28px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: var(--copper);
+}
+
+.placeholder-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(52px, 6vw, 100px);
+  font-weight: 500;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  color: var(--dark-ruby);
+}
+
+.placeholder-line {
+  width: 55px;
+  height: 1px;
+  margin: 32px 0 20px;
+  background: var(--copper);
+}
+
+.placeholder-text {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 800px) {
+  .placeholder-page {
+    padding: 0 6vw;
+    min-height: calc(100vh - var(--navbar-height-mobile));
+  }
+}

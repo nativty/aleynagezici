@@ -1,0 +1,6 @@
+.divider {
+  width: var(--divider-width);
+  height: var(--divider-height);
+  background: var(--copper);
+  margin: var(--space-md) 0 var(--space-sm);
+}

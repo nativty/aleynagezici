@@ -1,0 +1,43 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: 15px 22px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: var(--tracking-wide);
+  transition: var(--ease-medium);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--ruby);
+  color: var(--warm-white);
+}
+
+.btn-primary:hover {
+  background: var(--dark-ruby);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: var(--charcoal);
+  color: var(--warm-white);
+}
+
+.btn-secondary:hover {
+  background: var(--muted);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ruby);
+  border: var(--border-copper);
+}
+
+.btn-outline:hover {
+  background: var(--copper);
+  color: var(--warm-white);
+}
