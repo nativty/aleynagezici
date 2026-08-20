@@ -67,11 +67,8 @@ export default function BookViewer({
   const [visualPage, setVisualPage] = useState(currentPage);
   const [loadProgress, setLoadProgress] = useState(0);
 
-  // Lens position — only valid while cursor is inside the book
-  const [lensPos, setLensPos] = useState<{
-    vx: number; vy: number;
-    relX: number; relY: number;
-  } | null>(null);
+  // Lens state removed from React state to prevent re-renders
+  // We use direct DOM manipulation on the canvas now.
 
   const isMobile = windowSize.w < 900;
 
@@ -134,15 +131,13 @@ export default function BookViewer({
     }
   }, [currentPage, onPageChange]);
 
-  // ── Reset zoom on page change ─────────────────────────────────────────────
   useEffect(() => {
     setIsZoomMode(false);
-    setLensPos(null);
   }, [currentPage]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { setIsZoomMode(false); setLensPos(null); }
+      if (e.key === "Escape") { setIsZoomMode(false); }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
@@ -164,7 +159,6 @@ export default function BookViewer({
 
   const toggleZoom = useCallback(() => {
     setIsZoomMode(prev => !prev);
-    setLensPos(null);
   }, []);
 
   // ── Magnifier: read directly from the already-rendered canvas in the DOM ──
@@ -219,17 +213,26 @@ export default function BookViewer({
     const rect = flipbookWrapperRef.current.getBoundingClientRect();
     const relX = e.clientX - rect.left;
     const relY = e.clientY - rect.top;
+    
+    const canvas = magnifierCanvasRef.current;
+    
     if (relX < 0 || relX > rect.width || relY < 0 || relY > rect.height) {
-      setLensPos(null);
+      if (canvas) canvas.style.display = 'none';
       return;
     }
-    const pos = { vx: e.clientX, vy: e.clientY, relX, relY };
-    setLensPos(pos);
+    
+    if (canvas) {
+      canvas.style.display = 'block';
+      canvas.style.left = `${e.clientX - LENS_W / 2}px`;
+      canvas.style.top = `${e.clientY - LENS_H / 2}px`;
+    }
+    
     drawMagnifier(relX, relY);
   }, [isZoomMode, drawMagnifier]);
 
   const handleMouseLeave = useCallback(() => {
-    setLensPos(null);
+    const canvas = magnifierCanvasRef.current;
+    if (canvas) canvas.style.display = 'none';
   }, []);
 
   const renderCover = () => (
@@ -359,7 +362,7 @@ export default function BookViewer({
       </div>
 
       {/* ── Magnifier overlay — canvas reads DOM directly, no PDF re-render ── */}
-      {isZoomMode && lensPos && (
+      {isZoomMode && (
         <canvas
           ref={magnifierCanvasRef}
           width={LENS_W}
@@ -367,12 +370,11 @@ export default function BookViewer({
           className="magnifier-lens"
           style={{
             position: "fixed",
-            left: lensPos.vx - LENS_W / 2,
-            top:  lensPos.vy - LENS_H / 2,
             width:  LENS_W,
             height: LENS_H,
             pointerEvents: "none",
             zIndex: 250,
+            display: "none"
           }}
         />
       )}
