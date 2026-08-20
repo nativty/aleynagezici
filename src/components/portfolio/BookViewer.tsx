@@ -310,7 +310,7 @@ export default function BookViewer({
                 flippingTime={950}
                 maxShadowOpacity={0.4}
                 clickEventForward={false}
-                useMouseEvents={true}
+                useMouseEvents={!isZoomMode}
               >
                 <BookPage key="cover" number={0} pageW={pageW} pageH={pageH}>
                   {renderCover()}
@@ -319,7 +319,7 @@ export default function BookViewer({
                 {Array.from({ length: numPages }).map((_, i) => {
                   const pageNum     = i + 1;
                   const shouldRender =
-                    Math.abs(pageNum - visualPage) <= 2 ||
+                    Math.abs(pageNum - visualPage) <= 4 ||
                     (navStateRef.current.target !== null &&
                       Math.abs(pageNum - navStateRef.current.target) <= 1);
 
@@ -342,6 +342,17 @@ export default function BookViewer({
                   );
                 })}
               </HTMLFlipBook>
+              {/* Event blocker overlay for zoom mode - stops react-pageflip from curling pages */}
+              {isZoomMode && (
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    zIndex: 200,
+                    cursor: "crosshair",
+                  }}
+                />
+              )}
             </div>
           )}
         </Document>
