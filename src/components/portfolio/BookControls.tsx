@@ -25,7 +25,7 @@ export default function BookControls({ currentPage, numPages, onPrev, onNext, ca
   return (
     <div className="book-controls">
       <button className="book-btn" onClick={onPrev} disabled={!canPrev} aria-label="Previous spread">
-        ← GERİ
+        ← PREV
       </button>
 
       <div className="book-center-controls">
@@ -33,8 +33,8 @@ export default function BookControls({ currentPage, numPages, onPrev, onNext, ca
         <button 
           className={`book-btn zoom-btn ${isZoomMode ? 'active' : ''}`}
           onClick={onToggleZoom}
-          title="Büyüteç (Magnifier)"
-          aria-label="Büyüteç"
+          title="Magnifier"
+          aria-label="Magnifier"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{verticalAlign: 'middle', marginTop: '-2px'}}>
             <circle cx="11" cy="11" r="8"></circle>
@@ -46,7 +46,7 @@ export default function BookControls({ currentPage, numPages, onPrev, onNext, ca
       </div>
 
       <button className="book-btn" onClick={onNext} disabled={!canNext} aria-label="Next spread">
-        İLERİ →
+        NEXT →
       </button>
     </div>
   );

@@ -19,7 +19,6 @@ export default function ProjectIndex({ projects, activeProjectId, onSelect }: Pr
     >
       <div className="index-rail">
         {projects.map((proj) => {
-          // If the project is enabled, it's clickable
           const isClickable = proj.enabled;
           const isActive = proj.id === activeProjectId;
           
@@ -37,7 +36,10 @@ export default function ProjectIndex({ projects, activeProjectId, onSelect }: Pr
               }}
             >
               <span className="index-num">{proj.number}</span>
-              <span className="index-title">{proj.title}</span>
+              <span className="index-title">
+                {proj.title}
+                {proj.subtitle && <em className="index-subtitle">{proj.subtitle}</em>}
+              </span>
             </div>
           );
         })}

@@ -12,12 +12,12 @@ export default function Contact() {
           <div className="contact-intro">
             <span className="contact-eyebrow">CONTACT</span>
             <h1 className="contact-title">
-              İletişime<br />
-              geçelim.
+              Let's work<br />
+              together.
             </h1>
             <Divider className="contact-divider" />
             <p className="contact-text">
-              Yeni bir projeyi konuşmak, portfolyo detaylarını görüşmek veya tasarım üzerine fikir alışverişinde bulunmak için iletişime geçebilirsiniz.
+              To discuss a new project, review portfolio details, or exchange ideas about design, feel free to get in touch.
             </p>
           </div>
 
@@ -38,7 +38,7 @@ export default function Contact() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="contact-link"
-                aria-label="Behance profilini yeni sekmede aç"
+                aria-label="Open Behance profile in a new tab"
               >
                 behance.net/aleyngeziciportfolio
               </a>

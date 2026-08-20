@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PageContainer from '../../components/ui/PageContainer';
 import SectionTitle from '../../components/ui/SectionTitle';
 import Divider from '../../components/ui/Divider';
@@ -45,7 +45,7 @@ export default function About() {
         <section className="about-closing" style={{ marginTop: '60px' }}>
           <h2>"Let's create something timeless."</h2>
           <Link to="/contact" className="about-contact-link">
-            İLETİŞİME GEÇ
+            GET IN TOUCH
           </Link>
         </section>
       </PageContainer>
