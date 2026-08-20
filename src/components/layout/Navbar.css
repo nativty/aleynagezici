@@ -1,6 +1,9 @@
-/* ─── Navbar Container ─────────────────────────────────────── */
+/* ── Navbar Container ──────────────────────────────────────── */
 
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 500;
   height: var(--navbar-height);
   padding: 0 var(--container-pad);
   display: flex;
@@ -10,7 +13,7 @@
   border-bottom: var(--border-subtle);
 }
 
-/* ─── Logo ─────────────────────────────────────────────────── */
+/* ── Logo ────────────────────────────────────────────────── */
 
 .logo {
   font-family: 'Cormorant Garamond', serif;
@@ -18,9 +21,11 @@
   line-height: 1;
   color: var(--ruby);
   letter-spacing: -0.08em;
+  z-index: 600;
+  position: relative;
 }
 
-/* ─── Navigation Links ─────────────────────────────────────── */
+/* ── Desktop Navigation Links ────────────────────────────── */
 
 .nav-links {
   display: flex;
@@ -60,22 +65,112 @@
   outline-offset: 4px;
 }
 
-/* ─── Reduced Motion ───────────────────────────────────────── */
+/* ── Hamburger Button ────────────────────────────────────── */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 600;
+  position: relative;
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--charcoal);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger.is-open span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.hamburger.is-open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger.is-open span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ── Mobile Full-Screen Overlay Menu ─────────────────────── */
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--cream);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  z-index: 500;
+  animation: fadeIn 0.25s ease;
+}
+
+.mobile-nav a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--dark-ruby);
+  transition: color 0.2s ease;
+}
+
+.mobile-nav a:hover,
+.mobile-nav a.active {
+  color: var(--copper);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Reduced Motion ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .nav-links a::after {
     transition: none;
   }
+  .hamburger span,
+  .mobile-nav {
+    transition: none;
+    animation: none;
+  }
 }
 
-/* ─── Responsive ───────────────────────────────────────────── */
+/* ── Responsive ───────────────────────────────────────────── */
 
 @media (max-width: 800px) {
   .navbar {
-    height: var(--navbar-height-mobile);
+    height: var(--navbar-height-mobile, 60px);
+    padding: 0 20px;
   }
 
-  /* Mobile menu will replace this in Phase 10 */
+  .logo {
+    font-size: 34px;
+  }
+
   .nav-links {
     display: none;
   }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-nav {
+    display: flex;
+  }
+
+  /* when menu is closed, hide it — JS toggles the DOM node */
 }

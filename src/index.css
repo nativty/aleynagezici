@@ -67,8 +67,8 @@
   --shadow-soft: 0 2px 12px rgba(36, 32, 30, 0.06);
 
   /* ─── Layout ───────────────────────────────────────────────── */
-  --navbar-height:        100px;
-  --navbar-height-mobile: 80px;
+  --navbar-height:        80px;
+  --navbar-height-mobile: 60px;
 }
 
 /* ─── Reset ────────────────────────────────────────────────── */

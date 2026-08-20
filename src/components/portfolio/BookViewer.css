@@ -1,4 +1,4 @@
-/* ════════════════════════════════════════════════════════════════
+﻿/* ════════════════════════════════════════════════════════════════
    BOOK VIEWER — A3 Landscape Portfolio Book (react-pageflip)
    ════════════════════════════════════════════════════════════════ */
 
@@ -288,3 +288,66 @@
 .progress-bar-container { width: 200px; height: 4px; background: rgba(122, 29, 29, 0.1); border-radius: 2px; overflow: hidden; }
 .progress-bar-fill { height: 100%; background: var(--wine-red); transition: width 0.3s ease; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===============================================================
+   MOBILE RESPONSIVE � BookViewer & Book Controls
+   =============================================================== */
+
+@media (max-width: 800px) {
+  .book-viewer {
+    height: auto;
+    min-height: calc(100vh - var(--navbar-height-mobile) - 20px);
+  }
+
+  .book-stage {
+    align-items: flex-start;
+    padding-top: 8px;
+  }
+
+  .book-controls-row {
+    flex: 0 0 auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  .book-controls {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .book-btn {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+
+  .book-center-controls {
+    gap: 6px;
+  }
+
+  .book-page-indicator {
+    font-size: 10px;
+    min-width: 70px;
+  }
+
+  .zoom-btn {
+    padding: 5px 10px !important;
+  }
+}
+
+/* �� Mobile: portfolio layout �� */
+@media (max-width: 800px) {
+  .portfolio-viewer-area {
+    padding: 4px 4px 0 4px;
+    justify-content: center;
+  }
+
+  .portfolio-index-area {
+    display: none;
+  }
+
+  .portfolio-layout {
+    height: auto;
+    min-height: calc(100vh - var(--navbar-height-mobile));
+  }
+}
+
