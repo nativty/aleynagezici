@@ -22,16 +22,7 @@ export function resolveSpread(startPage: number): number {
 }
 
 // ── Project definitions ──────────────────────────────────────────────────────
-// The PDF currently has 2 live projects:
-//   - Ulus Savoy P.I  → starts at page 5   (index pages 1-4)
-//   - Ulus Savoy P.II → starts at page 16
-//
-// The sidebar layout mirrors the image:
-//   00  MY GALLERY  (intro / index)
-//   — interior residential design —
-//     01  Ulus Savoy Residence P.I
-//     02  Ulus Savoy Residence P.II
-//   (future projects go here, currently disabled)
+// Project start pages are taken from the final portfolio PDF.
 // ─────────────────────────────────────────────────────────────────────────────
 export const portfolioProjects: PortfolioProject[] = [
   {
@@ -40,7 +31,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: 'MY GALLERY',
     subtitle: 'of design projects',
     type: 'project',
-    startPage: 1,
+    startPage: 2,
     enabled: true,
   },
   // ── interior residential design ───────────────────────────────
@@ -50,7 +41,7 @@ export const portfolioProjects: PortfolioProject[] = [
     title: 'ULUS SAVOY RESIDENCE',
     subtitle: 'P.I',
     type: 'project',
-    startPage: 5,
+    startPage: 3,
     enabled: true,
   },
   {
@@ -59,47 +50,53 @@ export const portfolioProjects: PortfolioProject[] = [
     title: 'ULUS SAVOY RESIDENCE',
     subtitle: 'P.II',
     type: 'project',
-    startPage: 16,
+    startPage: 14,
     enabled: true,
   },
-  // ── interior renovation (future) ──────────────────────────────
   {
-    id: 'suadiye-house',
+    id: 'ulus-apartment-1',
     number: '03',
-    title: 'SUADIYE HOUSE',
+    title: 'ULUS APARTMENT',
     subtitle: 'P.I',
     type: 'project',
-    startPage: 30,
-    enabled: false,
+    startPage: 27,
+    enabled: true,
   },
   {
-    id: 'gumsuyu-house',
+    id: 'mesa-house-1',
     number: '04',
+    title: 'MESA HOUSE',
+    subtitle: 'P.I',
+    type: 'project',
+    startPage: 35,
+    enabled: true,
+  },
+  {
+    id: 'suadiye-house-1',
+    number: '05',
+    title: 'SUADİYE HOUSE',
+    subtitle: 'P.I',
+    type: 'project',
+    startPage: 49,
+    enabled: true,
+  },
+  {
+    id: 'gumussuyu-house-1',
+    number: '06',
     title: 'GÜMÜŞSUYU HOUSE',
     subtitle: 'P.I',
     type: 'project',
-    startPage: 40,
-    enabled: false,
+    startPage: 57,
+    enabled: true,
   },
-  // ── interior office design (future) ───────────────────────────
   {
-    id: 'pera-office',
-    number: '05',
-    title: 'PERA OFFICE PROJECT',
-    subtitle: '',
+    id: 'pera-office-design-1',
+    number: '07',
+    title: 'PERA OFFICE DESIGN',
+    subtitle: 'P.I',
     type: 'project',
-    startPage: 50,
-    enabled: false,
-  },
-  // ── freelance projects (future) ───────────────────────────────
-  {
-    id: 'freelance-1',
-    number: '06',
-    title: 'FREELANCE PROJECTS',
-    subtitle: '',
-    type: 'project',
-    startPage: 60,
-    enabled: false,
+    startPage: 61,
+    enabled: true,
   },
 ];
 

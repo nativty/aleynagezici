@@ -14,25 +14,26 @@ export default function CV() {
           
           {/* COLUMN 1: IDENTITY */}
           <div className="cv-col cv-identity">
-            <div className="cv-photo-placeholder">
-              <div className="cv-photo-inner"></div>
+            <div className="cv-photo-frame">
+              <img src="/aleyna-gezici.jpg" alt="Aleyna Gezici" className="cv-photo" />
             </div>
             
             <div className="cv-contact-info">
-              <span className="cv-label">M: </span>
+              <span className="cv-email-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M3.5 5.5h17v13h-17z" />
+                  <path d="m4.5 6.5 7.5 6 7.5-6" />
+                </svg>
+              </span>
               <a href="mailto:aleyna.gezici1@gmail.com">aleyna.gezici1@gmail.com</a>
             </div>
 
             <div className="cv-behance-group">
-              <a href="https://www.behance.net/aleyngeziciportfolio" target="_blank" rel="noopener noreferrer" className="cv-behance-link">
-                https://www.behance.net/<br/>aleyngeziciportfolio
-              </a>
-              
               <a href="https://www.behance.net/aleyngeziciportfolio" target="_blank" rel="noopener noreferrer" className="cv-qr-link" aria-label="Go to Behance Profile">
                 <img src="/qr-behance.jpg" alt="Behance QR Code" className="cv-qr-img" />
               </a>
-              <a href="https://www.behance.net/aleyngeziciportfolio" target="_blank" rel="noopener noreferrer" className="cv-behance-label" aria-label="Open my Behance profile in a new tab">
-                MY BEHANCE <span>→</span>
+              <a href="https://www.behance.net/aleyngeziciportfolio" target="_blank" rel="noopener noreferrer" className="cv-behance-link">
+                behance.net/<br />aleyngeziciportfolio
               </a>
             </div>
           </div>

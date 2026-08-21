@@ -16,7 +16,7 @@
 
 .cv-page-header h1 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(28px, 4vw, 42px);
+  font-size: clamp(32px, 4vw, 42px);
   font-weight: 500;
   color: var(--dark-ruby);
   letter-spacing: var(--tracking-wide);
@@ -25,12 +25,11 @@
 
 .cv-page-header h2 {
   font-family: 'Inter', sans-serif;
-  font-size: 11px;
+  font-size: clamp(22px, 2.4vw, 30px);
   font-weight: 500;
   color: var(--copper);
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  margin-top: 6px;
+  letter-spacing: 0.04em;
+  margin-top: 4px;
 }
 
 /* â”€â”€â”€ Layout Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -67,7 +66,7 @@
 
 /* â”€â”€â”€ Column 1: Identity â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-.cv-photo-placeholder {
+.cv-photo-frame {
   width: 100%;
   aspect-ratio: 3 / 4;
   background: var(--copper);
@@ -76,32 +75,45 @@
   margin-bottom: var(--space-lg);
   box-shadow: var(--shadow-soft);
   position: relative;
+  border-radius: 2px;
 }
 
-.cv-photo-inner {
+.cv-photo {
+  display: block;
   width: 100%;
   height: 100%;
-  background: var(--warm-white);
+  object-fit: cover;
+  object-position: center top;
   border-radius: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cv-photo-inner::after {
-  content: 'PHOTO';
-  font-family: 'Inter', sans-serif;
-  font-size: 9px;
-  color: var(--muted);
-  letter-spacing: var(--tracking-widest);
 }
 
 .cv-contact-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-family: 'Inter', sans-serif;
   font-size: 9px;
   font-weight: 500;
   color: var(--charcoal);
   margin-bottom: 30px;
+}
+
+.cv-email-icon {
+  display: inline-flex;
+  width: 13px;
+  height: 13px;
+  flex: 0 0 13px;
+  color: var(--copper);
+}
+
+.cv-email-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .cv-contact-info a {
@@ -162,28 +174,6 @@
   height: 100%;
   object-fit: contain;
 }
-
-.cv-behance-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--copper);
-  letter-spacing: 0.05em;
-  text-transform: lowercase;
-  transition: color var(--ease-fast);
-}
-.cv-behance-label span {
-  display: inline-block;
-  margin-left: 4px;
-  transition: transform var(--ease-fast);
-}
-.cv-behance-label:hover,
-.cv-behance-label:focus-visible {
-  color: var(--ruby);
-  outline: none;
-}
-.cv-behance-label:hover span,
-.cv-behance-label:focus-visible span { transform: translateX(3px); }
 
 /* â”€â”€â”€ Column 2: Intro â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
@@ -361,7 +351,7 @@
   .cv-identity,
   .cv-intro,
   .cv-middle { display: contents; }
-  .cv-photo-placeholder { order: 1; }
+  .cv-photo-frame { order: 1; }
   .cv-contact-info { order: 2; }
   .cv-behance-group { order: 3; }
   .cv-resume-title { order: 4; }
@@ -371,7 +361,7 @@
   .cv-education-section { order: 8; }
   .cv-language-section { order: 9; }
   .cv-reference-section { order: 10; }
-  .cv-photo-placeholder {
+  .cv-photo-frame {
     width: 112px;
     margin-bottom: 16px;
   }
@@ -383,7 +373,6 @@
   }
   .cv-behance-link { display: none; }
   .cv-qr-link { width: 58px; height: 58px; flex: 0 0 58px; }
-  .cv-behance-label { font-size: 10px; letter-spacing: 0.12em; }
   .cv-contact-info { margin-bottom: 16px; font-size: 11px; }
   .cv-resume-title {
     font-size: 28px;

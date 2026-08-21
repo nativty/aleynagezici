@@ -25,13 +25,6 @@ export default function Contact() {
           <div className="contact-details">
             
             <div className="contact-info-block">
-              <span className="contact-label">E-MAIL</span>
-              <a href="mailto:aleyna.gezici1@gmail.com" className="contact-link">
-                aleyna.gezici1@gmail.com
-              </a>
-            </div>
-
-            <div className="contact-info-block">
               <span className="contact-label">BEHANCE</span>
               <a 
                 href="https://www.behance.net/aleyngeziciportfolio" 
@@ -41,6 +34,13 @@ export default function Contact() {
                 aria-label="Open Behance profile in a new tab"
               >
                 behance.net/aleyngeziciportfolio
+              </a>
+            </div>
+
+            <div className="contact-info-block">
+              <span className="contact-label">E-MAIL</span>
+              <a href="mailto:aleyna.gezici1@gmail.com" className="contact-link">
+                aleyna.gezici1@gmail.com
               </a>
             </div>
 
