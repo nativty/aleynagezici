@@ -51,6 +51,13 @@ export default function Home() {
       <div className="hero-footer">
         <span>ISTANBUL / TURKEY</span>
       </div>
+
+      <div className="home-paw-signature" aria-hidden="true">
+        <span className="paw-mark paw-mark-one" />
+        <span className="paw-mark paw-mark-two" />
+        <span className="paw-mark paw-mark-three" />
+        <span className="paw-mark paw-mark-four" />
+      </div>
     </main>
   )
 }

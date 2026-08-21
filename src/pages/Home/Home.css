@@ -2,6 +2,7 @@
 
 .home {
   /* Navbar is outside .home, subtract from viewport */
+  position: relative;
   min-height: calc(100vh - var(--navbar-height));
   padding: 0 var(--container-pad);
   background: var(--cream);
@@ -271,6 +272,37 @@
   height: 50px;
 }
 
+/* A quiet, one-time signature that enters from the lower-right edge. */
+.home-paw-signature {
+  position: absolute;
+  right: clamp(14px, 2.4vw, 42px);
+  bottom: 52px;
+  width: 124px;
+  height: 100px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.paw-mark {
+  --enter-x: 8px;
+  --enter-y: 8px;
+  --tilt: 0deg;
+  position: absolute;
+  width: 20px;
+  height: 24px;
+  opacity: 0;
+  background: var(--dark-ruby);
+  -webkit-mask: url('/bear-paw.svg') center / contain no-repeat;
+  mask: url('/bear-paw.svg') center / contain no-repeat;
+  animation: pawSignature 7.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* Two paired steps: each pair sits perpendicular to the path toward the lower-right. */
+.paw-mark-four { left: 12px; top: 25px; --enter-x: 5px; --enter-y: 5px; --tilt: 126deg; animation-delay: 1.3s; }
+.paw-mark-three { left: 36px; top: 7px; --enter-x: 6px; --enter-y: 4px; --tilt: 133deg; animation-delay: 1.55s; }
+.paw-mark-two { left: 60px; top: 67px; --enter-x: 10px; --enter-y: 9px; --tilt: 141deg; animation-delay: 2.25s; }
+.paw-mark-one { left: 84px; top: 49px; --enter-x: 12px; --enter-y: 10px; --tilt: 148deg; animation-delay: 2.5s; }
+
 /* â”€â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 @media (max-width: 800px) {
@@ -330,6 +362,12 @@
     align-items: center;
     padding: 0 0 16px;
   }
+  .home-paw-signature {
+    right: -2px;
+    bottom: 38px;
+    transform: scale(0.78);
+    transform-origin: bottom right;
+  }
 }
 
 /* Animations */
@@ -341,11 +379,17 @@
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
 }
+@keyframes pawSignature {
+  0%, 12% { opacity: 0; transform: translate(calc(var(--enter-x) * -1), calc(var(--enter-y) * -1)) rotate(var(--tilt)); }
+  24%, 54% { opacity: 0.62; transform: translate(0, 0) rotate(var(--tilt)); }
+  100% { opacity: 0; transform: translate(5px, 5px) rotate(var(--tilt)); }
+}
 @media (prefers-reduced-motion: reduce) {
   .eyebrow, .hero h1, .hero-line, .hero-description, .hero-button, .hero-book-placeholder, .hero-footer {
     animation: none !important; opacity: 1 !important; transform: none !important;
   }
   .book { transition: none !important; }
+  .home-paw-signature { display: none; }
 }
 
 
