@@ -287,6 +287,11 @@
   margin-bottom: 12px;
 }
 
+/* References are intentionally withheld from the public CV for now. */
+.cv-reference-section {
+  display: none;
+}
+
 /* â”€â”€â”€ Column 4: Experience â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .cv-job {
