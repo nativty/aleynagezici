@@ -53,10 +53,10 @@ export default function Home() {
       </div>
 
       <div className="home-paw-signature" aria-hidden="true">
-        <span className="paw-mark paw-mark-one" />
-        <span className="paw-mark paw-mark-two" />
-        <span className="paw-mark paw-mark-three" />
-        <span className="paw-mark paw-mark-four" />
+        <span className="paw-mark paw-front paw-step-one" />
+        <span className="paw-mark paw-front paw-step-two" />
+        <span className="paw-mark paw-rear paw-step-three" />
+        <span className="paw-mark paw-rear paw-step-four" />
       </div>
     </main>
   )

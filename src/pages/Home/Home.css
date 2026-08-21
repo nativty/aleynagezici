@@ -275,10 +275,10 @@
 /* A quiet, one-time signature that enters from the lower-right edge. */
 .home-paw-signature {
   position: absolute;
-  right: clamp(14px, 2.4vw, 42px);
-  bottom: 52px;
-  width: 124px;
-  height: 100px;
+  right: clamp(18px, 4.2vw, 72px);
+  bottom: 34px;
+  width: 150px;
+  height: 112px;
   pointer-events: none;
   z-index: 1;
 }
@@ -288,8 +288,8 @@
   --enter-y: 8px;
   --tilt: 0deg;
   position: absolute;
-  width: 20px;
-  height: 24px;
+  width: 21px;
+  height: 25px;
   opacity: 0;
   background: var(--dark-ruby);
   -webkit-mask: url('/bear-paw.svg') center / contain no-repeat;
@@ -297,11 +297,16 @@
   animation: pawSignature 7.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-/* Two paired steps: each pair sits perpendicular to the path toward the lower-right. */
-.paw-mark-four { left: 12px; top: 25px; --enter-x: 5px; --enter-y: 5px; --tilt: 126deg; animation-delay: 1.3s; }
-.paw-mark-three { left: 36px; top: 7px; --enter-x: 6px; --enter-y: 4px; --tilt: 133deg; animation-delay: 1.55s; }
-.paw-mark-two { left: 60px; top: 67px; --enter-x: 10px; --enter-y: 9px; --tilt: 141deg; animation-delay: 2.25s; }
-.paw-mark-one { left: 84px; top: 49px; --enter-x: 12px; --enter-y: 10px; --tilt: 148deg; animation-delay: 2.5s; }
+.paw-front,
+.paw-rear { width: 22px; height: 26px; }
+
+/* A short diagonal walk from behind the book toward the lower-right.
+   The staggered front/rear placements imply one invisible bear body width
+   and stride, rather than a row of unrelated icons. */
+.paw-step-one { left: 8px; top: 7px; --enter-x: -6px; --enter-y: -7px; --tilt: 134deg; animation-delay: 1.15s; }
+.paw-step-two { left: 40px; top: 26px; --enter-x: -6px; --enter-y: -7px; --tilt: 138deg; animation-delay: 1.65s; }
+.paw-step-three { left: 54px; top: 59px; --enter-x: -5px; --enter-y: -6px; --tilt: 133deg; animation-delay: 2.15s; }
+.paw-step-four { left: 90px; top: 80px; --enter-x: -5px; --enter-y: -6px; --tilt: 137deg; animation-delay: 2.62s; }
 
 /* â”€â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
@@ -363,9 +368,9 @@
     padding: 0 0 16px;
   }
   .home-paw-signature {
-    right: -2px;
-    bottom: 38px;
-    transform: scale(0.78);
+    right: -16px;
+    bottom: 26px;
+    transform: scale(0.64);
     transform-origin: bottom right;
   }
 }
