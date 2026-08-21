@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Link } from "react-router-dom";
+import pdfWorker from "pdfjs-dist/build/pdf.worker.min.mjs?url";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import BookControls from "./BookControls";
@@ -9,7 +10,10 @@ import "./BookViewer.css";
 // @ts-ignore
 import HTMLFlipBook from "react-pageflip";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+// Keep the worker in the deployed build instead of depending on an external CDN.
+// This is especially important on mobile connections, where a blocked or slow CDN
+// previously left the portfolio unable to render.
+pdfjs.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 interface BookViewerProps {
   file: string;
@@ -41,6 +45,7 @@ const BookPage = React.forwardRef<HTMLDivElement, BookPageProps>((props, ref) =>
   <div
     className="book-page-slot"
     ref={ref}
+    data-page-number={props.number}
     style={{ width: props.pageW, height: props.pageH }}
   >
     {props.children}
@@ -173,9 +178,21 @@ export default function BookViewer({
     if (!isZoomMode && navStateRef.current.target === null) flipBookRef.current?.pageFlip().flipPrev();
   };
 
-  const toggleZoom = useCallback(() => {
-    setIsZoomMode(prev => !prev);
+  const clearPageCurl = useCallback(() => {
+    const pageFlip = flipBookRef.current?.pageFlip?.();
+    if (!pageFlip) return;
+
+    // A corner preview can already be in progress before the zoom button is
+    // pressed. Finish its return animation immediately so zoom always starts
+    // from a completely flat spread.
+    pageFlip.getFlipController?.().stopMove?.();
+    pageFlip.getRender?.().finishAnimation?.();
   }, []);
+
+  const toggleZoom = useCallback(() => {
+    if (!isZoomMode) clearPageCurl();
+    setIsZoomMode(prev => !prev);
+  }, [clearPageCurl, isZoomMode]);
 
   // ── Magnifier: read directly from the already-rendered canvas in the DOM ──
   // This never causes a white flash because we only read what's already painted.
@@ -189,40 +206,46 @@ export default function BookViewer({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Find all visible PDF canvases inside the flipbook
-    const pdfCanvases = wrapper.querySelectorAll<HTMLCanvasElement>("canvas");
-    if (pdfCanvases.length === 0) return;
+    // Only sample the page currently open beneath the pointer. react-pageflip
+    // keeps neighbouring and turning pages mounted, so reading every canvas can
+    // accidentally magnify a page behind the visible spread.
+    const leftPage = currentPage % 2 === 0 ? Math.max(1, currentPage - 1) : currentPage;
+    const targetPage = isMobile || relX < wrapper.clientWidth / 2
+      ? leftPage
+      : leftPage + 1;
+    const targetCanvas = wrapper.querySelector<HTMLCanvasElement>(
+      `.book-page-slot[data-page-number="${targetPage}"] canvas`,
+    );
+    if (!targetCanvas) return;
 
     ctx.clearRect(0, 0, LENS_W, LENS_H);
     ctx.fillStyle = "#F0EDE6";
     ctx.fillRect(0, 0, LENS_W, LENS_H);
 
-    pdfCanvases.forEach((src) => {
-      const srcRect = src.getBoundingClientRect();
-      const wrapRect = wrapper.getBoundingClientRect();
+    const srcRect = targetCanvas.getBoundingClientRect();
+    const wrapRect = wrapper.getBoundingClientRect();
 
-      // Position of this canvas relative to wrapper
-      const srcX = srcRect.left - wrapRect.left;
-      const srcY = srcRect.top  - wrapRect.top;
+    // Position of this canvas relative to wrapper
+    const srcX = srcRect.left - wrapRect.left;
+    const srcY = srcRect.top  - wrapRect.top;
 
-      // The magnifier zooms around (relX, relY) inside the wrapper
-      // Map: dst pixel = (src pixel - focal) * mag + center
-      const focalX = relX;
-      const focalY = relY;
+    // The magnifier zooms around (relX, relY) inside the wrapper
+    // Map: dst pixel = (src pixel - focal) * mag + center
+    const focalX = relX;
+    const focalY = relY;
 
-      // Destination rectangle for this source canvas
-      const dstX = (srcX - focalX) * LENS_MAG + LENS_W / 2;
-      const dstY = (srcY - focalY) * LENS_MAG + LENS_H / 2;
-      const dstW = srcRect.width  * LENS_MAG;
-      const dstH = srcRect.height * LENS_MAG;
+    // Destination rectangle for this source canvas
+    const dstX = (srcX - focalX) * LENS_MAG + LENS_W / 2;
+    const dstY = (srcY - focalY) * LENS_MAG + LENS_H / 2;
+    const dstW = srcRect.width  * LENS_MAG;
+    const dstH = srcRect.height * LENS_MAG;
 
-      try {
-        ctx.drawImage(src, dstX, dstY, dstW, dstH);
-      } catch {
-        // Silently ignore cross-origin or not-yet-painted canvases
-      }
-    });
-  }, []);
+    try {
+      ctx.drawImage(targetCanvas, dstX, dstY, dstW, dstH);
+    } catch {
+      // Silently ignore a canvas that has not finished painting yet.
+    }
+  }, [currentPage, isMobile]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (!isZoomMode || !flipbookWrapperRef.current) return;
@@ -250,6 +273,17 @@ export default function BookViewer({
     const canvas = magnifierCanvasRef.current;
     if (canvas) canvas.style.display = 'none';
   }, []);
+
+  const blockPageFlipEvent = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isZoomMode) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, [isZoomMode]);
+
+  const handleZoomPointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
+    blockPageFlipEvent(event);
+    handlePointerMove(event);
+  }, [blockPageFlipEvent, handlePointerMove]);
 
   const renderCover = () => (
     <div className="book-virtual-cover" style={{ width: pageW, height: pageH }}>
@@ -309,6 +343,8 @@ export default function BookViewer({
               } as React.CSSProperties}
               onPointerMove={handlePointerMove}
               onPointerLeave={handlePointerLeave}
+              onPointerDownCapture={blockPageFlipEvent}
+              onPointerUpCapture={blockPageFlipEvent}
             >
               <div className="flipbook-depth-left" />
               <div className="flipbook-depth-right" />
@@ -387,12 +423,15 @@ export default function BookViewer({
               {/* Event blocker overlay for zoom mode - stops react-pageflip from curling pages */}
               {isZoomMode && (
                 <div
-                  onPointerMove={handlePointerMove}
+                  onPointerMove={handleZoomPointerMove}
                   onPointerLeave={handlePointerLeave}
+                  onPointerDown={blockPageFlipEvent}
+                  onPointerUp={blockPageFlipEvent}
+                  onPointerCancel={blockPageFlipEvent}
                   style={{
                     position: "absolute",
                     inset: 0,
-                    zIndex: 200,
+                    zIndex: 1000,
                     cursor: "crosshair",
                     touchAction: "none",
                   }}
@@ -433,6 +472,8 @@ export default function BookViewer({
           onToggleZoom={toggleZoom}
           isBackCover={isBackCover}
           isGeneratedPage={isGeneratedPage}
+          isMobile={isMobile}
+          onGoToPage={onPageChange}
         />
       </div>
     </div>
