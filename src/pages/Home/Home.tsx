@@ -17,19 +17,19 @@ export default function Home() {
           <div className="hero-line" />
 
           <p className="hero-description">
-            Mekânları sadece tasarlamıyorum,
+            I do not just design spaces,
             <br />
-            yaşamları dönüştürüyorum.
+            I transform lives.
           </p>
 
           <Link className="hero-button" to="/portfolio">
-            PORTFOLYOYU KEŞFET
+            EXPLORE PORTFOLIO
             <span>→</span>
           </Link>
         </div>
 
         <div className="hero-book-placeholder">
-          <Link to="/portfolio" className="book" aria-label="Portfolyoyu İncele">
+          <Link to="/portfolio" className="book" aria-label="Explore Portfolio">
             <div className="book-back"></div>
             <div className="book-pages-right"></div>
             <div className="book-pages-top"></div>
@@ -40,7 +40,6 @@ export default function Home() {
 
               <div className="book-title">
                 PORTFOLIO
-                <small>2026</small>
               </div>
 
               <div className="book-logo">ag</div>
@@ -51,17 +50,7 @@ export default function Home() {
 
       <div className="hero-footer">
         <span>ISTANBUL / TURKEY</span>
-        <button 
-          className="scroll-btn" 
-          onClick={() => {
-            document.getElementById('explore-target')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-        >
-          SCROLL TO EXPLORE ↓
-        </button>
       </div>
-
-      <div id="explore-target" className="home-explore-target"></div>
     </main>
   )
 }

@@ -28,11 +28,11 @@ export default function CV() {
                 https://www.behance.net/<br/>aleyngeziciportfolio
               </a>
               
-              <a href="https://www.behance.net/aleyngeziciportfolio" target="_blank" rel="noopener noreferrer" className="cv-qr-link" aria-label="Behance Profiline Git">
+              <a href="https://www.behance.net/aleyngeziciportfolio" target="_blank" rel="noopener noreferrer" className="cv-qr-link" aria-label="Go to Behance Profile">
                 <img src="/qr-behance.jpg" alt="Behance QR Code" className="cv-qr-img" />
               </a>
-              <a href="https://www.behance.net/aleyngeziciportfolio" target="_blank" rel="noopener noreferrer" className="cv-behance-label">
-                my behance
+              <a href="https://www.behance.net/aleyngeziciportfolio" target="_blank" rel="noopener noreferrer" className="cv-behance-label" aria-label="Open my Behance profile in a new tab">
+                MY BEHANCE <span>→</span>
               </a>
             </div>
           </div>

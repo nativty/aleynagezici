@@ -1,4 +1,4 @@
-/* ─── Home Page Container ──────────────────────────────────── */
+﻿/* â”€â”€â”€ Home Page Container â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .home {
   /* Navbar is outside .home, subtract from viewport */
@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-/* ─── Hero Section ─────────────────────────────────────────── */
+/* â”€â”€â”€ Hero Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .hero {
   min-height: calc(100vh - 150px);
@@ -23,7 +23,7 @@
   padding-top: 20px;
 }
 
-/* ─── Hero Typography ──────────────────────────────────────── */
+/* â”€â”€â”€ Hero Typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .eyebrow {
   margin-bottom: 22px;
@@ -60,7 +60,7 @@
   animation: fadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
 }
 
-/* ─── CTA Button ───────────────────────────────────────────── */
+/* â”€â”€â”€ CTA Button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .hero-button {
   display: inline-flex;
@@ -88,7 +88,7 @@
   font-size: 16px;
 }
 
-/* ─── Book Visual ──────────────────────────────────────────── */
+/* â”€â”€â”€ Book Visual â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .hero-book-placeholder {
   display: flex;
@@ -115,7 +115,7 @@
   outline: none;
 }
 
-/* ─── 3D Book Elements ─────────────────────────────────────── */
+/* â”€â”€â”€ 3D Book Elements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .book-front {
   position: absolute;
@@ -213,7 +213,7 @@
   );
 }
 
-/* ─── Book Typography ──────────────────────────────────────── */
+/* â”€â”€â”€ Book Typography â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .book-title {
   position: relative;
@@ -240,7 +240,7 @@
   color: var(--copper);
 }
 
-/* ─── Hero Footer ──────────────────────────────────────────── */
+/* â”€â”€â”€ Hero Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .hero-footer {
   display: flex;
@@ -271,79 +271,81 @@
   height: 50px;
 }
 
-/* ─── Responsive ───────────────────────────────────────────── */
+/* â”€â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 @media (max-width: 800px) {
   .home {
     padding: 0 6vw;
-    min-height: calc(100vh - var(--navbar-height-mobile)); /* Mobile navbar */
+    min-height: calc(100vh - var(--navbar-height-mobile));
   }
-
   .hero {
     grid-template-columns: 1fr;
-    padding: 60px 0;
+    padding: 30px 0 20px;
+    gap: 24px;
+    min-height: auto;
   }
-
   .hero-content {
     padding-left: 0;
   }
-
   .hero h1 {
-    font-size: clamp(70px, 20vw, 110px);
+    font-size: clamp(48px, 14vw, 80px);
   }
-
   .hero-book-placeholder {
-    height: 500px;
+    height: auto;
+    padding: 10px 0 4px;
+    perspective: 800px;
   }
-
   .book {
-    width: min(280px, 65%);
+    width: min(235px, 68vw);
+    transform: rotateY(-18deg) rotateX(8deg);
   }
-
+  .book-spine {
+    width: 12px;
+  }
+  .book-pages-right {
+    width: 12px;
+  }
+  .book-pages-top {
+    height: 12px;
+  }
+  .book-front {
+    padding: 16px 14px;
+  }
+  .book-title {
+    font-size: 24px;
+  }
+  .book-logo {
+    font-size: 22px;
+  }
+  .book-front > span {
+    font-size: 6px;
+  }
+  .hero-button {
+    padding: 12px 18px;
+    font-size: 9px;
+    gap: 14px;
+  }
   .hero-footer {
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    padding: 0 0 20px;
+    padding: 0 0 16px;
   }
 }
 
-/* ─── Animations ───────────────────────────────────────────── */
-
+/* Animations */
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes scaleXIn {
-  from {
-    transform: scaleX(0);
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow, .hero h1, .hero-line, .hero-description, .hero-button, .hero-book-placeholder, .hero-footer {
+    animation: none !important; opacity: 1 !important; transform: none !important;
   }
-  to {
-    transform: scaleX(1);
-  }
+  .book { transition: none !important; }
 }
 
-/* Respect user motion preferences */
-@media (prefers-reduced-motion: reduce) {
-  .eyebrow,
-  .hero h1,
-  .hero-line,
-  .hero-description,
-  .hero-button,
-  .hero-book-placeholder,
-  .hero-footer {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  .book {
-    transition: none !important;
-  }
-}
+

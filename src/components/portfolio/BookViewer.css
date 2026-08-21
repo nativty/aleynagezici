@@ -216,6 +216,33 @@
   color: var(--copper);
 }
 
+.book-back-cover {
+  background-image: linear-gradient(to right, rgba(36,32,30,0.48) 0%, rgba(36,32,30,0.07) 6%, transparent 12%);
+}
+
+.book-back-cover-inner {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-cover-contact {
+  color: var(--warm-white);
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(9px, 1.2vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  padding: 10px 14px;
+  border: 1px solid rgba(245,240,232,0.45);
+  transition: background var(--ease-medium), color var(--ease-medium);
+}
+
+.back-cover-contact:hover,
+.back-cover-contact:focus-visible {
+  background: var(--warm-white);
+  color: var(--ruby);
+  outline: none;
+}
+
 /* ── Controls ───────────────────────────────────────────────────── */
 .book-controls {
   display: flex;
@@ -332,6 +359,18 @@
   .zoom-btn {
     padding: 5px 10px !important;
   }
+
+  .magnifier-lens {
+    width: 280px !important;
+    height: 200px !important;
+    border-radius: 10px;
+  }
+
+  .back-cover-contact {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
 }
 
 /* �� Mobile: portfolio layout �� */
@@ -341,13 +380,10 @@
     justify-content: center;
   }
 
-  .portfolio-index-area {
-    display: none;
-  }
-
-  .portfolio-layout {
+.portfolio-layout {
     height: auto;
     min-height: calc(100vh - var(--navbar-height-mobile));
   }
 }
+
 

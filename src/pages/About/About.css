@@ -107,3 +107,9 @@
     padding-top: var(--space-lg);
   }
 }
+
+@media (max-width: 800px) {
+  .about { padding: var(--space-md) 0; }
+  .about-lead { font-size: 14px; line-height: 1.7; max-width: 100%; }
+  .about-closing h2 { font-size: clamp(24px, 8vw, 40px); }
+}

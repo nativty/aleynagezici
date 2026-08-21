@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+import { Link } from "react-router-dom";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import BookControls from "./BookControls";
@@ -72,11 +73,17 @@ export default function BookViewer({
 
   const isMobile = windowSize.w < 900;
 
-  const availH     = Math.min(windowSize.h - NAVBAR_H - CONTROLS_H - V_PAD, windowSize.h * MAX_H_FRAC);
-  const stageW     = stageRef.current?.clientWidth ?? windowSize.w - 200;
-  const halfW      = stageW / 2;
+  const effNavbarH   = isMobile ? 60 : NAVBAR_H;
+  const effControlsH = isMobile ? 50 : CONTROLS_H;
+  const effVPad      = isMobile ? 16 : V_PAD;
+  
+  const availH     = Math.min(windowSize.h - effNavbarH - effControlsH - effVPad, windowSize.h * (isMobile ? 0.85 : MAX_H_FRAC));
+  const stageW     = stageRef.current?.clientWidth ?? (isMobile ? windowSize.w - 16 : windowSize.w - 200);
+  // Desktop is deliberately a two-page spread; phones use the full stage for
+  // one readable A3-landscape page.
+  const pageMaxW   = isMobile ? stageW : stageW / 2;
   const PAGE_ASPECT = 420 / 297; // A3 Landscape
-  const hFromW     = halfW / PAGE_ASPECT;
+  const hFromW     = pageMaxW / PAGE_ASPECT;
   const pageH      = Math.floor(Math.min(availH, hFromW));
   const pageW      = Math.floor(pageH * PAGE_ASPECT);
 
@@ -150,6 +157,8 @@ export default function BookViewer({
     if (total) setLoadProgress(Math.min(100, Math.round((loaded / total) * 100)));
   };
 
+  const isBackCover = currentPage > numPages;
+
   const goNext = () => {
     if (!isZoomMode && navStateRef.current.target === null) flipBookRef.current?.pageFlip().flipNext();
   };
@@ -208,7 +217,7 @@ export default function BookViewer({
     });
   }, []);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     if (!isZoomMode || !flipbookWrapperRef.current) return;
     const rect = flipbookWrapperRef.current.getBoundingClientRect();
     const relX = e.clientX - rect.left;
@@ -230,7 +239,7 @@ export default function BookViewer({
     drawMagnifier(relX, relY);
   }, [isZoomMode, drawMagnifier]);
 
-  const handleMouseLeave = useCallback(() => {
+  const handlePointerLeave = useCallback(() => {
     const canvas = magnifierCanvasRef.current;
     if (canvas) canvas.style.display = 'none';
   }, []);
@@ -246,14 +255,15 @@ export default function BookViewer({
   );
 
   const canGoPrev = currentPage > 0;
-  const canGoNext = currentPage < numPages;
+  // The generated back cover is an internal book page, never a PDF page.
+  const canGoNext = currentPage < numPages + 1;
   const isCover   = visualPage === 0;
 
   const zoomStyle: React.CSSProperties = {
     transition:      "transform 0.3s ease",
     transformOrigin: "center center",
     transform:       "scale(1)",
-    width:  pageW * 2,
+    width:  isMobile ? pageW : pageW * 2,
     height: pageH,
     ...(isZoomMode ? { cursor: "crosshair" } : {}),
   };
@@ -288,8 +298,8 @@ export default function BookViewer({
                 "--right-depth": `${rightDepthPx}px`,
                 ...zoomStyle,
               } as React.CSSProperties}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
+              onPointerMove={handlePointerMove}
+              onPointerLeave={handlePointerLeave}
             >
               <div className="flipbook-depth-left" />
               <div className="flipbook-depth-right" />
@@ -344,15 +354,29 @@ export default function BookViewer({
                     </BookPage>
                   );
                 })}
+                {/* BACK COVER */}
+                <BookPage key="back-cover" number={numPages + 1} pageW={pageW} pageH={pageH}>
+                  <div className="book-virtual-cover book-back-cover" style={{ width: pageW, height: pageH }}>
+                    <div className="book-virtual-cover-inner book-back-cover-inner">
+                      <div className="book-logo">ag</div>
+                      <Link to="/contact" className="back-cover-contact" onClick={(event) => event.stopPropagation()}>
+                        CONTACT <span>→</span>
+                      </Link>
+                    </div>
+                  </div>
+                </BookPage>
               </HTMLFlipBook>
               {/* Event blocker overlay for zoom mode - stops react-pageflip from curling pages */}
               {isZoomMode && (
                 <div
+                  onPointerMove={handlePointerMove}
+                  onPointerLeave={handlePointerLeave}
                   style={{
                     position: "absolute",
                     inset: 0,
                     zIndex: 200,
                     cursor: "crosshair",
+                    touchAction: "none",
                   }}
                 />
               )}
@@ -389,6 +413,7 @@ export default function BookViewer({
           canNext={canGoNext}
           isZoomMode={isZoomMode}
           onToggleZoom={toggleZoom}
+          isBackCover={isBackCover}
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-/* ─── CV Page Container ────────────────────────────────────── */
+﻿/* â”€â”€â”€ CV Page Container â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .cv {
   padding: var(--space-md) 0;
@@ -7,7 +7,7 @@
   animation: fadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-/* ─── Header ───────────────────────────────────────────────── */
+/* â”€â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .cv-page-header {
   margin-bottom: var(--space-md);
@@ -33,7 +33,7 @@
   margin-top: 6px;
 }
 
-/* ─── Layout Grid ──────────────────────────────────────────── */
+/* â”€â”€â”€ Layout Grid â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .cv-grid {
   display: grid;
@@ -42,7 +42,7 @@
   align-items: start;
 }
 
-/* ─── Global CV Elements ───────────────────────────────────── */
+/* â”€â”€â”€ Global CV Elements â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .cv-section {
   margin-bottom: 24px;
@@ -65,7 +65,7 @@
   color: var(--charcoal);
 }
 
-/* ─── Column 1: Identity ───────────────────────────────────── */
+/* â”€â”€â”€ Column 1: Identity â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .cv-photo-placeholder {
   width: 100%;
@@ -172,13 +172,20 @@
   text-transform: lowercase;
   transition: color var(--ease-fast);
 }
+.cv-behance-label span {
+  display: inline-block;
+  margin-left: 4px;
+  transition: transform var(--ease-fast);
+}
 .cv-behance-label:hover,
 .cv-behance-label:focus-visible {
   color: var(--ruby);
   outline: none;
 }
+.cv-behance-label:hover span,
+.cv-behance-label:focus-visible span { transform: translateX(3px); }
 
-/* ─── Column 2: Intro ──────────────────────────────────────── */
+/* â”€â”€â”€ Column 2: Intro â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .cv-resume-title {
   font-family: 'Cormorant Garamond', serif;
@@ -222,7 +229,7 @@
   font-size: 10px;
 }
 
-/* ─── Column 3: Middle (Edu, Lang, Ref) ────────────────────── */
+/* â”€â”€â”€ Column 3: Middle (Edu, Lang, Ref) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .cv-list-item {
   margin-bottom: 16px;
@@ -280,7 +287,7 @@
   margin-bottom: 12px;
 }
 
-/* ─── Column 4: Experience ─────────────────────────────────── */
+/* â”€â”€â”€ Column 4: Experience â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 .cv-job {
   margin-bottom: 24px;
@@ -316,7 +323,7 @@
   color: var(--muted);
 }
 
-/* ─── Responsive ───────────────────────────────────────────── */
+/* â”€â”€â”€ Responsive â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 @media (max-width: 1100px) {
   .cv-grid {
@@ -332,31 +339,52 @@
 
 @media (max-width: 800px) {
   .cv {
-    padding: var(--space-lg) 0;
+    padding: 24px 0 32px;
     min-height: calc(100vh - var(--navbar-height-mobile));
   }
   .cv-page-header {
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-sm);
   }
   .cv-grid {
     grid-template-columns: 1fr;
-    gap: var(--space-xl);
+    gap: 24px;
   }
   .cv-col {
     grid-column: 1 / -1;
   }
   .cv-photo-placeholder {
-    width: 200px;
+    width: 112px;
+    margin-bottom: 16px;
   }
   .cv-behance-group {
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 20px;
+    gap: 14px;
+  }
+  .cv-behance-link { display: none; }
+  .cv-qr-link { width: 58px; height: 58px; flex: 0 0 58px; }
+  .cv-behance-label { font-size: 10px; letter-spacing: 0.12em; }
+  .cv-contact-info { margin-bottom: 16px; font-size: 11px; }
+  .cv-resume-title {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  .cv-softwares-section {
+    margin-top: 22px;
+  }
+  .cv-section {
+    margin-bottom: 22px;
   }
   .cv-experience {
     margin-top: 0;
     border-top: none;
     padding-top: 0;
   }
+  .cv-section-title { margin-bottom: 10px; }
+  .cv-text { font-size: 12px; line-height: 1.6; }
+  .cv-list-item { margin-bottom: 12px; }
+  .cv-job { margin-bottom: 18px; }
+  .cv-software-list { gap: 7px; }
 }
+

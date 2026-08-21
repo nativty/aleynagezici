@@ -52,13 +52,17 @@
   .portfolio-layout {
     height: auto;
     flex-direction: column;
-    padding-bottom: var(--space-xl);
+    padding-bottom: 50px;
   }
   .portfolio-index-area {
-    display: none;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    transform: none;
+    width: 100%;
   }
   .portfolio-viewer-area {
-    padding: var(--space-md) 16px;
+    padding: 8px 4px 0 4px;
     width: 100%;
     justify-content: center;
   }

@@ -1,4 +1,4 @@
-.project-index {
+﻿.project-index {
   position: relative;
   display: flex;
   justify-content: flex-end;
@@ -87,3 +87,4 @@
   cursor: default;
   opacity: 0.5;
 }
+
