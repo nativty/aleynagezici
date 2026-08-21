@@ -225,6 +225,15 @@
   justify-content: space-between;
 }
 
+.book-endpaper {
+  background-image: linear-gradient(to right, rgba(36,32,30,0.42) 0%, rgba(36,32,30,0.05) 7%, transparent 14%);
+}
+
+.book-endpaper-inner {
+  align-items: center;
+  justify-content: flex-end;
+}
+
 .back-cover-contact {
   color: var(--warm-white);
   font-family: 'Inter', sans-serif;
@@ -323,18 +332,18 @@
 @media (max-width: 800px) {
   .book-viewer {
     height: auto;
-    min-height: calc(100vh - var(--navbar-height-mobile) - 20px);
+    min-height: 0;
   }
 
   .book-stage {
+    flex: 0 0 auto;
     align-items: flex-start;
     padding-top: 8px;
   }
 
   .book-controls-row {
     flex: 0 0 auto;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin: 8px 0 4px;
   }
 
   .book-controls {

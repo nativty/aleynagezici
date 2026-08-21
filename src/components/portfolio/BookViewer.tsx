@@ -157,7 +157,12 @@ export default function BookViewer({
     if (total) setLoadProgress(Math.min(100, Math.round((loaded / total) * 100)));
   };
 
-  const isBackCover = currentPage > numPages;
+  // For an odd PDF page count, a ruby endpaper completes the final spread.
+  // The physical back cover remains a separate final page in all cases.
+  const needsEndpaper = numPages > 0 && numPages % 2 !== 0;
+  const backCoverPage = numPages + (needsEndpaper ? 2 : 1);
+  const isGeneratedPage = currentPage > numPages;
+  const isBackCover = currentPage >= backCoverPage;
 
   const goNext = () => {
     if (!isZoomMode && navStateRef.current.target === null) flipBookRef.current?.pageFlip().flipNext();
@@ -256,7 +261,7 @@ export default function BookViewer({
 
   const canGoPrev = currentPage > 0;
   // The generated back cover is an internal book page, never a PDF page.
-  const canGoNext = currentPage < numPages + 1;
+  const canGoNext = currentPage < backCoverPage;
   const isCover   = visualPage === 0;
 
   const zoomStyle: React.CSSProperties = {
@@ -354,8 +359,17 @@ export default function BookViewer({
                     </BookPage>
                   );
                 })}
+                {needsEndpaper && (
+                  <BookPage key="endpaper" number={numPages + 1} pageW={pageW} pageH={pageH}>
+                    <div className="book-virtual-cover book-endpaper" style={{ width: pageW, height: pageH }}>
+                      <div className="book-virtual-cover-inner book-endpaper-inner">
+                        <div className="book-logo">ag</div>
+                      </div>
+                    </div>
+                  </BookPage>
+                )}
                 {/* BACK COVER */}
-                <BookPage key="back-cover" number={numPages + 1} pageW={pageW} pageH={pageH}>
+                <BookPage key="back-cover" number={backCoverPage} pageW={pageW} pageH={pageH}>
                   <div className="book-virtual-cover book-back-cover" style={{ width: pageW, height: pageH }}>
                     <div className="book-virtual-cover-inner book-back-cover-inner">
                       <div className="book-logo">ag</div>
@@ -414,6 +428,7 @@ export default function BookViewer({
           isZoomMode={isZoomMode}
           onToggleZoom={toggleZoom}
           isBackCover={isBackCover}
+          isGeneratedPage={isGeneratedPage}
         />
       </div>
     </div>

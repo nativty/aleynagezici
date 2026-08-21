@@ -10,9 +10,10 @@ interface BookControlsProps {
   isZoomMode: boolean;
   onToggleZoom: () => void;
   isBackCover: boolean;
+  isGeneratedPage: boolean;
 }
 
-export default function BookControls({ currentPage, numPages, onPrev, onNext, canPrev, canNext, isZoomMode, onToggleZoom, isBackCover }: BookControlsProps) {
+export default function BookControls({ currentPage, numPages, onPrev, onNext, canPrev, canNext, isZoomMode, onToggleZoom, isBackCover, isGeneratedPage }: BookControlsProps) {
   // Spread label: "1–2 / 27", "3–4 / 27", etc.
   const spreadLabel = () => {
     if (currentPage === 0)          return 'PORTFOLIO';
@@ -35,7 +36,7 @@ export default function BookControls({ currentPage, numPages, onPrev, onNext, ca
         <button 
           className={`book-btn zoom-btn ${isZoomMode ? 'active' : ''}`}
           onClick={onToggleZoom}
-          disabled={isBackCover}
+          disabled={isGeneratedPage}
           title="Magnifier"
           aria-label="Magnifier"
         >

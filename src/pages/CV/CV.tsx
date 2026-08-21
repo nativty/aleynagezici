@@ -41,7 +41,7 @@ export default function CV() {
           <div className="cv-col cv-intro">
             <h2 className="cv-resume-title">RÉSUMÉ</h2>
             
-            <div className="cv-section">
+            <div className="cv-section cv-profile-section">
               <h3 className="cv-section-title">CREATIVE JOURNEY</h3>
               <p className="cv-text">
                 Hi! I'm Aleyna, a 2021 graduate in Interior Design. I worked as an office and site architect from 2021 to 2024. Since 2024, I have been working freelance on interior design and illustration projects (nearly two years). My experience focuses on residential and office projects across site surveys, concept development, project documentation, visualization, and on-site supervision. I look forward to contributing to new creative projects with a multidisciplinary approach.
@@ -64,7 +64,7 @@ export default function CV() {
 
           {/* COLUMN 3: MIDDLE */}
           <div className="cv-col cv-middle">
-            <div className="cv-section">
+            <div className="cv-section cv-education-section">
               <h3 className="cv-section-title">EDUCATION</h3>
               <div className="cv-list-item">
                 <h4>Istanbul Bilgi University</h4>
@@ -76,7 +76,7 @@ export default function CV() {
               </div>
             </div>
 
-            <div className="cv-section">
+            <div className="cv-section cv-language-section">
               <h3 className="cv-section-title">LANGUAGE</h3>
               <div className="cv-lang-item">
                 <div className="cv-lang-header">
@@ -94,7 +94,7 @@ export default function CV() {
               </div>
             </div>
 
-            <div className="cv-section">
+            <div className="cv-section cv-reference-section">
               <h3 className="cv-section-title">REFERENCE</h3>
               <p className="cv-text cv-italic">References available upon request.</p>
               

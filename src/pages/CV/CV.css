@@ -346,12 +346,26 @@
     margin-bottom: var(--space-sm);
   }
   .cv-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
   .cv-col {
     grid-column: 1 / -1;
   }
+  .cv-identity,
+  .cv-intro,
+  .cv-middle { display: contents; }
+  .cv-photo-placeholder { order: 1; }
+  .cv-contact-info { order: 2; }
+  .cv-behance-group { order: 3; }
+  .cv-resume-title { order: 4; }
+  .cv-profile-section { order: 5; }
+  .cv-experience { order: 6; }
+  .cv-softwares-section { order: 7; }
+  .cv-education-section { order: 8; }
+  .cv-language-section { order: 9; }
+  .cv-reference-section { order: 10; }
   .cv-photo-placeholder {
     width: 112px;
     margin-bottom: 16px;
@@ -369,6 +383,7 @@
   .cv-resume-title {
     font-size: 28px;
     margin-bottom: 16px;
+    margin-top: 24px;
   }
   .cv-softwares-section {
     margin-top: 22px;
@@ -377,7 +392,7 @@
     margin-bottom: 22px;
   }
   .cv-experience {
-    margin-top: 0;
+    margin-top: 4px;
     border-top: none;
     padding-top: 0;
   }
