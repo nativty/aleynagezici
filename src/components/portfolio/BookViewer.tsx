@@ -159,7 +159,9 @@ export default function BookViewer({
 
   // For an odd PDF page count, a ruby endpaper completes the final spread.
   // The physical back cover remains a separate final page in all cases.
-  const needsEndpaper = numPages > 0 && numPages % 2 !== 0;
+  // A single-page mobile reader has no facing page to complete, so it closes
+  // directly from the last PDF page to the back cover.
+  const needsEndpaper = !isMobile && numPages > 0 && numPages % 2 !== 0;
   const backCoverPage = numPages + (needsEndpaper ? 2 : 1);
   const isGeneratedPage = currentPage > numPages;
   const isBackCover = currentPage >= backCoverPage;
@@ -268,7 +270,9 @@ export default function BookViewer({
     transition:      "transform 0.3s ease",
     transformOrigin: "center center",
     transform:       "scale(1)",
-    width:  isMobile ? pageW : pageW * 2,
+    // PageFlip retains an empty facing slot beside its final cover. The closed
+    // state displays only the physical back board, without that blank slot.
+    width:  isBackCover ? pageW : (isMobile ? pageW : pageW * 2),
     height: pageH,
     ...(isZoomMode ? { cursor: "crosshair" } : {}),
   };
@@ -297,7 +301,7 @@ export default function BookViewer({
           {numPages > 0 && (
             <div
               ref={flipbookWrapperRef}
-              className={`flipbook-wrapper${isZoomMode ? " is-zoomed" : ""}${isCover ? " is-cover" : ""}`}
+              className={`flipbook-wrapper${isZoomMode ? " is-zoomed" : ""}${isCover ? " is-cover" : ""}${isBackCover ? " is-back-cover" : ""}`}
               style={{
                 "--left-depth":  `${leftDepthPx}px`,
                 "--right-depth": `${rightDepthPx}px`,
@@ -359,15 +363,15 @@ export default function BookViewer({
                     </BookPage>
                   );
                 })}
-                {needsEndpaper && (
+                {needsEndpaper ? [
                   <BookPage key="endpaper" number={numPages + 1} pageW={pageW} pageH={pageH}>
                     <div className="book-virtual-cover book-endpaper" style={{ width: pageW, height: pageH }}>
                       <div className="book-virtual-cover-inner book-endpaper-inner">
                         <div className="book-logo">ag</div>
                       </div>
                     </div>
-                  </BookPage>
-                )}
+                  </BookPage>,
+                ] : []}
                 {/* BACK COVER */}
                 <BookPage key="back-cover" number={backCoverPage} pageW={pageW} pageH={pageH}>
                   <div className="book-virtual-cover book-back-cover" style={{ width: pageW, height: pageH }}>

@@ -65,6 +65,17 @@
   left: 50%;
 }
 
+/* The last board is a physical single cover. PageFlip keeps an empty facing
+   page internally; conceal only that slot when the book has fully closed. */
+.flipbook-wrapper.is-back-cover {
+  overflow: hidden;
+}
+
+.flipbook-wrapper.is-back-cover .flipbook-depth-right,
+.flipbook-wrapper.is-back-cover .flipbook-spine {
+  display: none;
+}
+
 .flipbook-wrapper.is-zoomed::before {
   box-shadow: 0 40px 100px rgba(36,32,30,0.35);
 }
@@ -102,10 +113,10 @@
   width: var(--right-depth, 10px);
   background: repeating-linear-gradient(
     to left,
-    #D6D1C6 0px,  #D6D1C6 1px,
-    #E6E2D8 1px,  #E6E2D8 3px
+    #D7CFAA 0px,  #D7CFAA 1px,
+    #F3EDC9 1px,  #F3EDC9 3px
   );
-  box-shadow: inset 1px 0 3px rgba(0,0,0,0.05), 3px 0 6px rgba(0,0,0,0.10);
+  box-shadow: inset 1px 0 3px rgba(74, 15, 15, 0.08), 3px 0 6px rgba(36,32,30,0.10);
   border-radius: 0 3px 3px 0;
   pointer-events: none;
   z-index: 1;
@@ -226,12 +237,17 @@
 }
 
 .book-endpaper {
-  background-image: linear-gradient(to right, rgba(36,32,30,0.42) 0%, rgba(36,32,30,0.05) 7%, transparent 14%);
+  background: #f3edc9;
+  background-image: linear-gradient(to right, rgba(139,31,31,0.12) 0%, rgba(139,31,31,0.025) 7%, transparent 14%);
 }
 
 .book-endpaper-inner {
   align-items: center;
   justify-content: flex-end;
+}
+
+.book-endpaper-inner .book-logo {
+  color: #8b1f1f;
 }
 
 .back-cover-contact {

@@ -269,7 +269,7 @@
   height: 100%;
   background: var(--dark-ruby);
 }
-.cv-lang-native { width: 95%; }
+.cv-lang-native { width: 100%; }
 .cv-lang-pro { width: 85%; }
 .cv-lang-item p {
   font-family: 'Inter', sans-serif;
